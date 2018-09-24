@@ -174,7 +174,7 @@ class WpShortscore {
 			"shortscore-rating", plugins_url( 'css/shortscore-rating.css', __FILE__ ), array(), $this->version );
 
 		wp_enqueue_script(
-			'shortscore-rangeslider', plugins_url( 'rangeslider/rangeslider.js', __FILE__ ), array( "jquery" ), $this->version );
+			'shortscore-rangeslider', plugins_url( 'rangeslider/rangeslider.min.js', __FILE__ ), array( "jquery" ), $this->version );
 
 		wp_enqueue_script(
 			'shortscore-rangeslider-init', plugins_url( 'rangeslider/rangeslider.init.js', __FILE__ ), array(
@@ -251,7 +251,7 @@ class WpShortscore {
 		$slug = '_shortscore_summary';
 		$html .= '<p>
                     <label for="' . $slug . '" class="prfx-row-title"> ' . __( 'Summary', 'wp-shortscore' ) . '</label><br>
-                    <textarea name="' . $slug . '" id="' . $slug . '" class="widefat" cols="50" rows="5">' . $shortscore_summary . '</textarea> 
+                    <textarea name="' . $slug . '" id="' . $slug . '" class="widefat" cols="50" rows="5">' . $shortscore_summary . '</textarea>
                 </p>';
 
 
