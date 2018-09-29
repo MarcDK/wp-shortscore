@@ -3,7 +3,7 @@
 Plugin Name: WP SHORTSCORE
 Description: Present your SHORTSCORES in a review box at the end of your posts.
 Plugin URI:  http://shortscore.org
-Version:     3.7
+Version:     3.8
 Text Domain: wp-shortscore
 Domain Path: /language
 Author:      MarcDK, lephilde
@@ -15,7 +15,7 @@ License URI: GPL v2 - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * Class WpShortscore
  */
 class WpShortscore {
-	private $version = '3.7';
+	private $version = '3.8';
 
 	/**
 	 * WpShortscore constructor.
