@@ -342,7 +342,7 @@ class WpShortscore {
 
 			$result = $this->object_to_array( get_post_meta( $post_id, '_shortscore_result', true ) );
 
-			$shortscore_url = $result['game']['url'];
+			$shortscore_url = get_permalink();
 			//$shortscore_comment_url = $result['shortscore']['url'];
 			$shortscore = ( $result['shortscore']['userscore'] );
 

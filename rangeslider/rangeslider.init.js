@@ -1,7 +1,7 @@
 (function ($) {
 
     $(document).ready(function () {
-        $('input[type="range"]').rangeslider({
+        $('#_shortscore_user_rating').rangeslider({
             polyfill: false,
             onInit: function () {
                 this.output = $('.shortscore-hreview .rating .value').html(this.$element.val());
