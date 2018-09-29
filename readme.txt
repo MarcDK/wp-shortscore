@@ -3,7 +3,7 @@ Contributors: MarcDK,lephilde
 Tags: marctv, shortscore, review box, hreview
 Requires at least: 3.0
 Tested up to: 4.9.8
-Stable tag: 3.5
+Stable tag: 3.6
 
 == Description ==
 
@@ -16,6 +16,11 @@ Present your SHORTSCORES in a review box at the end of your posts.
 * Activate it
 
 == Changelog ==
+
+= 3.6 =
+
+* removed all links to shortscore.org
+* more robust plugin compatibility with other plugins
 
 = 3.2 =
 
