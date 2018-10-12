@@ -3,7 +3,7 @@ Contributors: MarcDK,lephilde
 Tags: marctv, shortscore, review box, hreview
 Requires at least: 3.0
 Tested up to: 4.9.8
-Stable tag: 3.8
+Stable tag: 4.0
 
 == Description ==
 
@@ -16,6 +16,10 @@ Present your SHORTSCORES in a review box at the end of your posts.
 * Activate it
 
 == Changelog ==
+
+= 4.0 =
+
+* fixed bug which causes a mix of arrays and objects in the saves meta data.
 
 = 3.8 =
 

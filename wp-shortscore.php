@@ -3,7 +3,7 @@
 Plugin Name: WP SHORTSCORE
 Description: Present your SHORTSCORES in a review box at the end of your posts.
 Plugin URI:  http://shortscore.org
-Version:     3.8
+Version:     4.0
 Text Domain: wp-shortscore
 Domain Path: /language
 Author:      MarcDK, lephilde
@@ -15,7 +15,7 @@ License URI: GPL v2 - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * Class WpShortscore
  */
 class WpShortscore {
-	private $version = '3.8';
+	private $version = '4.0';
 
 	/**
 	 * WpShortscore constructor.
@@ -107,8 +107,10 @@ class WpShortscore {
 				],
 			];
 
+			$result_obj = json_decode(json_encode($result));
+
 			if ( $title != '' OR $shortscore_userrating != '' ) {
-				$this->savePostMeta( $post_id, '_shortscore_result', $result );
+				$this->savePostMeta( $post_id, '_shortscore_result', $result_obj );
 				$this->savePostMeta( $post_id, '_shortscore_user_rating', $shortscore_userrating );
 			}
 
@@ -214,18 +216,18 @@ class WpShortscore {
 		$shortscore = '';
 
 		if ( isset ( $shortscore_stored_meta['_shortscore_result'] ) ) {
-			$result = $this->object_to_array( get_post_meta( $post->ID, '_shortscore_result', true ) );
+			$result = ( get_post_meta( $post->ID, '_shortscore_result', true ));
 
-			if ( isset( $result['shortscore'] ) AND isset( $result['shortscore']['userscore'] ) ) {
-				$shortscore = $result['shortscore']['userscore'];
+			if ( isset( $result->shortscore ) AND isset( $result->shortscore->userscore ) ) {
+				$shortscore = $result->shortscore->userscore;
 			}
 
-			if ( isset( $result['shortscore'] ) AND isset( $result['shortscore']['summary'] ) ) {
-				$shortscore_summary = $result['shortscore']['summary'];
+			if ( isset( $result->shortscore ) AND isset( $result->shortscore->summary ) ) {
+				$shortscore_summary = $result -> shortscore ->summary;
 			}
 
-			if ( array_key_exists( 'game', $result ) AND array_key_exists( 'title', $result['game'] ) ) {
-				$title = $result['game']['title'];
+			if ( property_exists ( $result ,'game' ) AND property_exists ( $result->game,'title' ) ){
+				$title = $result->game->title;
 			}
 		}
 
@@ -235,23 +237,22 @@ class WpShortscore {
 
 		$html = '';
 
-
 		$slug = '_shortscore_game_title';
 		$html .= '<p class="rangeslider-box">
                     <label for="' . $slug . '" class="prfx-row-title"> ' . __( 'Game title', 'wp-shortscore' ) . '</label><br>
                     <input type="text" name="' . $slug . '" id="' . $slug . '" value="' . $title . '"/>
                 </p>';
 
-		$slug = '_shortscore_user_rating';
-		$html .= '<p>
-                    <label for="' . $slug . '" class="prfx-row-title"> ' . __( 'Shortscore (1 to 10)', 'wp-shortscore' ) . '</label><br>
-                    <input type="range" min="0" max="10" step ="0.5" name="' . $slug . '" id="' . $slug . '" value="' . $shortscore . '"/>
-                </p>';
-
 		$slug = '_shortscore_summary';
 		$html .= '<p>
                     <label for="' . $slug . '" class="prfx-row-title"> ' . __( 'Summary', 'wp-shortscore' ) . '</label><br>
                     <textarea name="' . $slug . '" id="' . $slug . '" class="widefat" cols="50" rows="5">' . $shortscore_summary . '</textarea>
+                </p>';
+
+		$slug = '_shortscore_user_rating';
+		$html .= '<p>
+                    <label for="' . $slug . '" class="prfx-row-title"> ' . __( 'Shortscore (1 to 10)', 'wp-shortscore' ) . '</label><br>
+                    <input type="range" min="0" max="10" step ="0.5" name="' . $slug . '" id="' . $slug . '" value="' . $shortscore . '"/>
                 </p>';
 
 
@@ -340,19 +341,18 @@ class WpShortscore {
 
 		if ( get_post_meta( $post_id, '_shortscore_result', true ) != '' ) {
 
-			$result = $this->object_to_array( get_post_meta( $post_id, '_shortscore_result', true ) );
+			$result = get_post_meta( $post_id, '_shortscore_result', true );
+
+			if(! is_object($result) ){
+				$result = json_decode(json_encode($result));
+			}
 
 			$shortscore_url = get_permalink();
-			//$shortscore_comment_url = $result['shortscore']['url'];
-			$shortscore = ( $result['shortscore']['userscore'] );
-
-			$shortscore_summary = nl2br( $result['shortscore']['summary'] );
-
-			$shortscore_author = $result['shortscore']['author'];
-			$shortscore_title  = $result['game']['title'];
-			$shortscore_date   = $result['shortscore']['date'];
-			//$shortscore_count       = $result['game']['count'];
-
+			$shortscore = ( $result->shortscore->userscore);
+			$shortscore_summary = nl2br( $result->shortscore->summary );
+			$shortscore_author = $result->shortscore->author;
+			$shortscore_title  = $result->game->title;
+			$shortscore_date   = $result->shortscore->date;
 		}
 
 		if ( $shortscore == '' OR $shortscore < 1 ) {
