@@ -2,8 +2,8 @@
 Contributors: MarcDK,lephilde
 Tags: marctv, shortscore, review box, hreview
 Requires at least: 3.0
-Tested up to: 4.9.8
-Stable tag: 4.1
+Tested up to: 5.2.3
+Stable tag: 4.3
 
 == Description ==
 
@@ -16,6 +16,10 @@ Present your SHORTSCORES in a review box at the end of your posts.
 * Activate it
 
 == Changelog ==
+
+= 4.2 =
+
+* Added Dark Mode images
 
 = 4.0 =
 
@@ -64,4 +68,3 @@ Fixed hreview microformat markup.
 = 1.0 =
 
 Inital version
-
