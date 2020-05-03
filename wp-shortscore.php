@@ -176,7 +176,7 @@ class WpShortscore {
 			"shortscore-rating", plugins_url( 'css/shortscore-rating.css', __FILE__ ), array(), $this->version );
 
 		wp_enqueue_script(
-			'shortscore-rangeslider', plugins_url( 'rangeslider/rangeslider.js', __FILE__ ), array( "jquery" ), $this->version );
+			'shortscore-rangeslider', plugins_url( 'rangeslider/rangeslider.min.js', __FILE__ ), array( "jquery" ), $this->version );
 
 		wp_enqueue_script(
 			'shortscore-rangeslider-init', plugins_url( 'rangeslider/rangeslider.init.js', __FILE__ ), array(
