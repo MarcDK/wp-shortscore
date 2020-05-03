@@ -3,7 +3,7 @@ Contributors: MarcDK,lephilde
 Tags: marctv, shortscore, review box, hreview
 Requires at least: 3.0
 Tested up to: 5.4
-Stable tag: 4.4
+Stable tag: 4.5
 
 == Description ==
 
@@ -16,54 +16,12 @@ Present your SHORTSCORES in a review box at the end of your posts.
 
 == Changelog ==
 
+= 4.5 =
+
+* Fixed delete SHORTSCORE button on post
+* Fixed php notices
+
+
 = 4.2 =
 
 * Added Dark Mode images
-
-= 4.0 =
-
-* fixed bug which causes a mix of arrays and objects in the saves meta data.
-
-= 3.8 =
-
-* removed all links to shortscore.org
-* more robust plugin compatibility with other plugins
-
-= 3.2 =
-
-* removed dependencies from SHORTSCORE.org.
-* new interface to enter your review data directly from the post.
-* new images. Background color can now be changed with css!
-* Better retina support in FF
-
-= 2.0.5 =
-
-* fixed compatibilty with twenty seventeen
-
-= 2.0.4 =
-
-Saved rating to separate meta field
-
-= 2.0.3 =
-
-more robust css
-
-= 2.0.2 =
-
- Working localisation hook implemented.
-
-= 2.0.1 =
-
-More markup for better style options.
-
-= 2.0 =
-
-Added transparent images for easier styling
-
-= 1.9 =
-
-Fixed hreview microformat markup.
-
-= 1.0 =
-
-Inital version
