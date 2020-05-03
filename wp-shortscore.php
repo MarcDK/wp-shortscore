@@ -3,7 +3,7 @@
 Plugin Name: WP SHORTSCORE
 Description: Show off your SHORTSCORES in a review box at the end of your posts.
 Plugin URI:  http://shortscore.org
-Version:     4.3
+Version:     4.4
 Text Domain: wp-shortscore
 Domain Path: /language
 Author:      MarcDK, lephilde
@@ -176,7 +176,7 @@ class WpShortscore {
 			"shortscore-rating", plugins_url( 'css/shortscore-rating.css', __FILE__ ), array(), $this->version );
 
 		wp_enqueue_script(
-			'shortscore-rangeslider', plugins_url( 'rangeslider/rangeslider.min.js', __FILE__ ), array( "jquery" ), $this->version );
+			'shortscore-rangeslider', plugins_url( 'rangeslider/rangeslider.js', __FILE__ ), array( "jquery" ), $this->version );
 
 		wp_enqueue_script(
 			'shortscore-rangeslider-init', plugins_url( 'rangeslider/rangeslider.init.js', __FILE__ ), array(
@@ -212,8 +212,9 @@ class WpShortscore {
 	public function shortscore_meta_callback( $post ) {
 		wp_nonce_field( basename( __FILE__ ), 'shortscore_nonce' );
 		$shortscore_stored_meta = get_post_meta( $post->ID );
-
+		$title = '';
 		$shortscore = '';
+		$shortscore_summary = '';
 
 		if ( isset ( $shortscore_stored_meta['_shortscore_result'] ) ) {
 			$result = ( get_post_meta( $post->ID, '_shortscore_result', true ));
@@ -374,11 +375,11 @@ class WpShortscore {
 				$shortscore   = 0;
 			}
 
-			if ( $shortscore_summary == '' ) {
+			if ( isset($shortscore_summary) && $shortscore_summary == '' ) {
 				$notice_inner .= '<li>' . __( 'Summary field is empty.', 'wp-shortscore' ) . '</li>';
 			}
 
-			if ( $shortscore_title == '' ) {
+			if ( isset($shortscore_title) && $shortscore_title == '' ) {
 				$notice_inner .= '<li>' . __( 'Game title field is emtpy.', 'wp-shortscore' ) . '</li>';
 			}
 
@@ -400,7 +401,7 @@ class WpShortscore {
 		// $shortscore_html .= '<h3 class="shortscore-title"><a class="score" href="' . $shortscore_url . '">' . __( 'Rating on SHORTSCORE.org', 'wp-shortscore' ) . '</a></h3>';
 		$shortscore_html .= '<div class="hreview shortscore-hreview">';
 
-		if ( $shortscore_summary != '' ) {
+		if ( isset($shortscore_summary) && $shortscore_summary != '' ) {
 			$shortscore_html .= '<div class="text">';
 			$shortscore_html .= '<span class="item"> <a class="score" href="' . $shortscore_url . '"><strong class="fn">' . $shortscore_title . '</strong></a>: </span>';
 			$shortscore_html .= '<span class="summary">' . $shortscore_summary . '</span><span class="reviewer vcard"> – <span class="fn">' . $shortscore_author . '</span></span>';
@@ -410,7 +411,11 @@ class WpShortscore {
 		$shortscore_html .= '<div class="rating">';
 		$shortscore_html .= '<div id="shortscore_value" class="shortscore shortscore-' . $shortscore_class . '"><span class="value">' . $shortscore . '</span></div>';
 		$shortscore_html .= '<div class="outof">' . sprintf( __( 'out of %s.', 'wp-shortscore' ), '<span class="best">10</span>' ) . '</div>';
-		$shortscore_html .= '<span class="dtreviewed">' . $shortscore_date . '</span> ';
+
+		if ( isset($shortscore_date) ){
+			$shortscore_html .= '<span class="dtreviewed">' . $shortscore_date . '</span> ';
+		}
+
 		$shortscore_html .= '</div>';
 
 		//$shortscore_html .= '<div class="link"><a href="' . $shortscore_url . '">' . sprintf( __( '%s', 'wp-shortscore' ), '<span class="votes">' . sprintf( _n( 'one user review', '%s user reviews', $shortscore_count, 'wp-shortscore' ), $shortscore_count ) . '</span> ' ) . __( 'on', 'wp-shortscore' ) . ' SHORTSCORE.org ' . __( 'to', 'wp-shortscore' ) . ' ' . $shortscore_title . '</a></div>';
@@ -419,7 +424,8 @@ class WpShortscore {
 		$shortscore_html .= '</div>';
 
 		if ( is_admin() ) {
-			$buttons = '<div style="overflow: hidden; margin-top: 1em;">' . get_submit_button( __( 'Delete SHORTSCORE', 'wp-shortscore' ), 'delete small', 'delete_shortscore' ) . '</div>';
+
+			$buttons = '<p style="color:darkred;"><label for="delete_shortscore">' . __("Check to delete this SHORTSCORE",'shortscore') . '</label> <input id="delete_shortscore" name="delete_shortscore" type="checkbox" value="1"/></p>';
 
 			$shortscore_html = '<div class="shortscore-preview">' . $shortscore_html . '</div>' . $notice . $buttons;
 
