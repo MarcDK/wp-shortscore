@@ -3,7 +3,7 @@
 Plugin Name: WP SHORTSCORE
 Description: Show off your SHORTSCORES in a review box at the end of your posts.
 Plugin URI:  http://shortscore.org
-Version:     4.6
+Version:     5.0
 Text Domain: wp-shortscore
 Domain Path: /language
 Author:      MarcDK, lephilde
@@ -15,7 +15,7 @@ License URI: GPL v2 - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * Class WpShortscore
  */
 class WpShortscore {
-	private $version = '4.0';
+	private $version = '5.0';
 
 	/**
 	 * WpShortscore constructor.
@@ -333,6 +333,90 @@ class WpShortscore {
 		}
 	}
 
+
+private function getPlatforms($post_id){
+		$platforms = array();
+		$tags = wp_get_post_tags($post_id);
+
+		/* this hardcoded list will be enough until I come up with a better idea */
+		$whitelist = array(
+			"Dreamcast",
+			"Switch",
+			"GameBoy",
+			"GameCube",
+			"Wii",
+			"Super Nintendo",
+			"SNES",
+			"PlayStation",
+			"macOS",
+			"Windows",
+			"XBOX"
+		);
+
+		foreach ($tags as $tag) {
+			foreach ($whitelist as $os) {
+				if ( strpos($tag->name,$os) !== false ) {
+					$platforms[] = $tag->name;
+				}
+			}
+		}
+
+		return $platforms;
+
+}
+
+
+private function getShortscoreJSON(){
+	$post_id = get_the_ID();
+	$result = get_post_meta( $post_id, '_shortscore_result', true );
+	$domain = get_site_url();
+	$pid = $post_id;
+	$game_title = $result->game->title;
+	$post_title = get_the_title($post_id);
+	$author_id = get_post_field( 'post_author', $post_id );
+	$author_name = $result->shortscore->author;
+	$author_url = get_author_posts_url($author_id);
+	$shortscore = $result->shortscore->userscore;
+	$url = get_permalink($post_id);
+	$date_zulu = $result->shortscore->date;
+	$shortscore_summary = nl2br( $result->shortscore->summary );
+	$arr_plattforms = $this->getPlatforms($post_id);
+
+	$arr = array(
+	'@context' => 'https://schema.org',
+	'@graph' => array(
+		'itemReviewed' => array(
+			'name' => $game_title,
+			'@type' => 'VideoGame',
+			'applicationCategory' => 'Game',
+			'operatingSystem' => $arr_plattforms
+		),
+	  '@type' => 'Review',
+	  '@id' => $domain.'/#/schema/review/'.$pid,
+	  'name' => $post_title,
+	  'author' => array(
+	    '@id' => $domain.'/#/schema/review/'.$author_id,
+	    'name' => $author_name,
+	    'sameAs' => $author_url
+	  ),
+	  'reviewRating' => array(
+	    '@type' => 'Rating',
+	    'ratingValue' => $shortscore,
+	    'bestRating' => '10',
+	    'worstRating' => '1'
+	  ),
+	  'url' => $url,
+	  'datePublished' => $date_zulu,
+	  'description' => $shortscore_summary
+	)
+	);
+	$json = json_encode($arr,JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)."\n";
+	$json_markup = '<script type="application/ld+json">' . $json . '</script>';
+
+	return $json_markup;
+
+}
+
 	/**
 	 * @return float|string
 	 */
@@ -349,7 +433,7 @@ class WpShortscore {
 			}
 
 			$shortscore_url = get_permalink();
-			$shortscore = ( $result->shortscore->userscore);
+			$shortscore = $result->shortscore->userscore;
 			$shortscore_summary = nl2br( $result->shortscore->summary );
 			$shortscore_author = $result->shortscore->author;
 			$shortscore_title  = $result->game->title;
@@ -432,7 +516,8 @@ class WpShortscore {
 		}
 
 		if ( is_admin() OR ( $shortscore_url != '' AND $shortscore_title != '' AND $shortscore_author != '' AND $shortscore_date != '' AND $shortscore != '' AND $shortscore_summary != '' ) ) {
-			return $shortscore_html;
+			$json_markup = $this->getShortscoreJSON();
+			return $shortscore_html . $json_markup;
 		} else {
 			return false;
 		}
