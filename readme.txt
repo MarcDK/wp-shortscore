@@ -3,7 +3,7 @@ Contributors: MarcDK,lephilde
 Tags: marctv, shortscore, review box, hreview
 Requires at least: 3.0
 Tested up to: 5.4
-Stable tag: 5.0
+Stable tag: 5.2
 
 == Description ==
 
@@ -16,9 +16,9 @@ Present your SHORTSCORES in a review box at the end of your posts.
 
 == Changelog ==
 
-= 5.0 =
+= 5.2 =
 
-Added schema.org json 
+Added schema.org json and removed outdated microformat hreview.
 
 = 4.6 =
 
