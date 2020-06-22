@@ -1,9 +1,9 @@
 === WP SHORTSCORE ===
 Contributors: MarcDK,lephilde
-Tags: marctv, shortscore, review box, hreview
+Tags: marctv, shortscore, review box, schema, microformat
 Requires at least: 3.0
 Tested up to: 5.4
-Stable tag: 5.2
+Stable tag: 5.3
 
 == Description ==
 
@@ -16,9 +16,9 @@ Present your SHORTSCORES in a review box at the end of your posts.
 
 == Changelog ==
 
-= 5.2 =
+= 5.3 =
 
-Added schema.org json and removed outdated microformat hreview.
+* Added schema.org json and removed outdated microformat hreview.
 
 = 4.6 =
 
