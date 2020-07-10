@@ -15,7 +15,7 @@ License URI: GPL v2 - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * Class WpShortscore
  */
 class WpShortscore {
-	private $version = '5.4';
+	private $version = '5.5';
 	private $whitelist = array(
 		"Dreamcast",
 		"Switch",
@@ -426,6 +426,12 @@ private function getShortscoreJSON(){
 		'publisher' => array (
 			'@type' => 'Organisation',
 			'name' => $blogname,
+			'logo' => array(
+				'@type' => 'ImageObject',
+				'url' => $blogimage_url,
+				'width' => $blogimage_width,
+				'height' => $blogimage_height,
+			),
 		),
 	  'reviewRating' => array(
 	    '@type' => 'Rating',
