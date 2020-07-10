@@ -20,6 +20,8 @@ class WpShortscore {
 		"Dreamcast",
 		"Switch",
 		"GameBoy",
+		"iOS",
+		"Android",
 		"GameCube",
 		"Wii",
 		"Super Nintendo",
@@ -372,6 +374,9 @@ private function getPlatforms($post_id){
 
 
 private function getShortscoreJSON(){
+	$blogimage_url = '';
+	$blogimage_width = '';
+	$blogimage_height = '';
 	$post_id = get_the_ID();
 	$result = get_post_meta( $post_id, '_shortscore_result', true );
 	$domain = get_site_url();
@@ -387,6 +392,19 @@ private function getShortscoreJSON(){
 	$shortscore_summary = nl2br( $result->shortscore->summary );
 	$arr_plattforms = $this->getPlatforms($post_id);
 
+	$custom_logo_id = get_theme_mod( 'custom_logo' );
+	$image = wp_get_attachment_image_src( $custom_logo_id , 'full' );
+
+	$local_code = get_locale();
+
+	if($image !== false){
+		$blogimage_url = $image[0];
+		$blogimage_width = $image[1];
+		$blogimage_height = $image[2];
+	}
+
+	$blogname = get_bloginfo( 'name' );
+
 	$arr = array(
 	'@context' => 'https://schema.org',
 	'@graph' => array(
@@ -397,13 +415,18 @@ private function getShortscoreJSON(){
 			'operatingSystem' => $arr_plattforms
 		),
 	  '@type' => 'Review',
-	  '@id' => $domain.'/#/schema/review/'.$pid,
+	  '@id' => $domain.'/?p='.$pid,
 	  'name' => $post_title,
 	  'author' => array(
-	    '@id' => $domain.'/#/schema/author/'.$author_id,
+			'@type' => 'Person',
+	    '@id' => $domain.'/?author='.$author_id,
 	    'name' => $author_name,
 	    'sameAs' => $author_url
 	  ),
+		'publisher' => array (
+			'@type' => 'Organisation',
+			'name' => $blogname,
+		),
 	  'reviewRating' => array(
 	    '@type' => 'Rating',
 	    'ratingValue' => $shortscore,
@@ -413,7 +436,7 @@ private function getShortscoreJSON(){
 	  'url' => $url,
 	  'datePublished' => $date_zulu,
 	  'description' => $shortscore_summary,
-		'inLanguage' => 'de'
+		'inLanguage' => $local_code
 	)
 	);
 	$json = json_encode($arr,JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)."\n";
