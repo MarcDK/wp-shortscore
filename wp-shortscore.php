@@ -3,7 +3,7 @@
 Plugin Name: WP SHORTSCORE
 Description: Show off your SHORTSCORES in a review box at the end of your posts.
 Plugin URI:  http://shortscore.org
-Version:     5.6
+Version:     5.7
 Text Domain: wp-shortscore
 Domain Path: /language
 Author:      MarcDK, lephilde
@@ -15,7 +15,7 @@ License URI: GPL v2 - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * Class WpShortscore
  */
 class WpShortscore {
-	private $version = '5.6';
+	private $version = '5.7';
 	private $whitelist = array(
 		"Dreamcast",
 		"Switch",
@@ -391,16 +391,22 @@ private function getShortscoreJSON(){
 	$date_zulu = $result->shortscore->date;
 	$shortscore_summary = nl2br( $result->shortscore->summary );
 	$arr_plattforms = $this->getPlatforms($post_id);
-
-	$custom_logo_id = get_theme_mod( 'custom_logo' );
-	$image = wp_get_attachment_image_src( $custom_logo_id , 'full' );
-
 	$local_code = get_locale();
 
-	if($image !== false){
-		$blogimage_url = $image[0];
-		$blogimage_width = $image[1];
-		$blogimage_height = $image[2];
+	$custom_logo_id = get_theme_mod( 'custom_logo' );
+	$bloglogo = wp_get_attachment_image_src( $custom_logo_id , 'full' );
+	if($bloglogo !== false){
+		$blogimage_url = $bloglogo[0];
+		$blogimage_width = $bloglogo[1];
+		$blogimage_height = $bloglogo[2];
+	}
+
+  $featuredimage_id = get_post_thumbnail_id($pid);
+	$gameimage = wp_get_attachment_image_src($featuredimage_id, 'full' );
+	if($gameimage !== false){
+		$gameimage_url = $gameimage[0];
+		$gameimage_width = $gameimage[1];
+		$gameimage_height = $gameimage[2];
 	}
 
 	$blogname = get_bloginfo( 'name' );
@@ -412,7 +418,13 @@ private function getShortscoreJSON(){
 			'name' => $game_title,
 			'@type' => 'VideoGame',
 			'applicationCategory' => 'Game',
-			'operatingSystem' => $arr_plattforms
+			'operatingSystem' => $arr_plattforms,
+			'logo' => array(
+				'@type' => 'ImageObject',
+				'url' => $gameimage_url,
+				'width' => $gameimage_width,
+				'height' => $gameimage_height,
+			),
 		),
 	  '@type' => 'Review',
 	  '@id' => $domain.'/?p='.$pid,
@@ -426,6 +438,7 @@ private function getShortscoreJSON(){
 		'publisher' => array (
 			'@type' => 'Organisation',
 			'name' => $blogname,
+			'sameAs' => $domain,
 			'logo' => array(
 				'@type' => 'ImageObject',
 				'url' => $blogimage_url,
