@@ -3,7 +3,7 @@ Contributors: MarcDK,lephilde
 Tags: marctv, shortscore, review box, schema, microformat
 Requires at least: 3.0
 Tested up to: 5.4
-Stable tag: 5.5
+Stable tag: 5.6
 
 == Description ==
 
