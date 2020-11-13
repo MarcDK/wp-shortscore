@@ -32,10 +32,10 @@ var animateShortcore = function() {
 
   jQuery.each(arr, function(index, value) {
     var predecessor = value - 1;
-    jQuery('#shortscore_value').delay(100).queue(function() {
+    jQuery('#shortscore_value').delay(400).queue(function() {
       jQuery('#shortscore_value').removeClass('shortscore-' + predecessor).addClass('shortscore-' + value).dequeue();
       if(value == arr.length){
-        shortscore.locked = false;
+        //shortscore.locked = false;
       }
     });
   });

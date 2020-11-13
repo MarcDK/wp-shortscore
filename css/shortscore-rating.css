@@ -3,10 +3,12 @@
 @media only screen and (-Webkit-min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-device-pixel-ratio: 2) {
     html .shortscore {
         background-image: url('../images/shortscore-mask@2x.png');
+        background-image: url('../images/shortscore-mask.svg'),linear-gradient(transparent, transparent);
     }
 
     html .single .type-game .shortscore {
         background-image: url('../images/shortscore-mask@4x.png');
+        background-image: url('../images/shortscore-mask.svg'),linear-gradient(transparent, transparent);
     }
 }
 
@@ -28,8 +30,12 @@
 
 .single .type-game .shortscore {
     background-repeat: no-repeat;
+    background-position: -400px -600px;
     background-size: 600px;
     background-image: url('../images/shortscore-mask@2x.png');
+    background-image: url('../images/shortscore-mask.svg'),linear-gradient(transparent, transparent);
+
+
     text-align: center;
     width: 200px;
     height: 200px;
@@ -47,93 +53,43 @@
     color: #fff;
 }
 
-.shortscore {
-    background-image: url('../images/shortscore-mask.png');
-    color: #fff;
-}
-
-.shortscore-0 {
-    background-position: 0 0;
-    color: #128C4D;
-}
-
-.shortscore-1 {
-    background-position: -100px 0;
-}
-
-.shortscore-2 {
+.single .type-game .shortscore-1 {
     background-position: -200px 0;
 }
 
-.shortscore-3 {
-    background-position: 0 -100px;
-}
-
-.shortscore-4 {
-    background-position: -100px -100px;
-}
-
-.shortscore-5 {
-    background-position: -200px -100px;
-}
-
-.shortscore-6 {
-    background-position: 0 -200px;
-}
-
-.shortscore-7 {
-    background-position: -100px -200px;
-}
-
-.shortscore-8 {
-    background-position: -200px -200px;
-}
-
-.shortscore-9 {
-    background-position: 0 -300px;
-}
-
-.shortscore-10 {
-    background-position: -100px -300px;
-}
-
-.single .type-game .shortscore-1{
-    background-position: -200px 0;
-}
-
-.single .type-game .shortscore-2{
+.single .type-game .shortscore-2 {
     background-position: -400px 0;
 }
 
-.single .type-game .shortscore-3{
+.single .type-game .shortscore-3 {
     background-position: 0 -200px;
 }
 
-.single .type-game .shortscore-4{
+.single .type-game .shortscore-4 {
     background-position: -200px -200px;
 }
 
-.single .type-game .shortscore-5{
+.single .type-game .shortscore-5 {
     background-position: -400px -200px;
 }
 
-.single .type-game .shortscore-6{
+.single .type-game .shortscore-6 {
     background-position: 0 -400px;
 }
 
-.single .type-game .shortscore-7{
+.single .type-game .shortscore-7 {
     background-position: -200px -400px;
 }
 
-.single .type-game .shortscore-8{
+.single .type-game .shortscore-8 {
     background-position: -400px -400px;
 }
 
-.single .type-game .shortscore-9{
+.single .type-game .shortscore-9 {
     background-position: 0 -600px;
 }
 
-.single .type-game .shortscore-10{
+.single .type-game .shortscore-10 {
     background-position: -200px -600px;
 }
 
