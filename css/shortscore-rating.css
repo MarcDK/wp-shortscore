@@ -124,19 +124,3 @@
 .type-game .entry-title {
     margin-bottom: 0.5em;
 }
-
-.scbgcoloreffect {
-	animation: gradient 1s ease 1;
-}
-
-@keyframes gradient {
-	0% {
-		background-color: red;
-	}
-	50% {
-		background-position: blue;
-	}
-	100% {
-		background-position: red;
-	}
-}
