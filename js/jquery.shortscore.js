@@ -1,19 +1,19 @@
 jQuery(function($) {
-   window.shortscore = {};
-   shortscore.locked = false;
-   shortscore.finished = false;
-   shortscore.delay = 600;
+  window.shortscore = {};
+  shortscore.locked = false;
+  shortscore.finished = false;
+  shortscore.delay = 555;
 
-  $(window).scroll(function() {
-    if ($("#shortscore_value").scisOnScreen()) {
-      if (shortscore.locked === false) {
+  if ($("#shortscore_value").length) {
+    $(window).scroll(function() {
+      if (shortscore.locked === false && $("#shortscore_value").scisOnScreen()) {
         animateShortcore(shortscore.delay);
       }
-    }
-  });
+    });
+  }
 
   $("#shortscore_value").click(function() {
-    if( shortscore.finished === true ){
+    if (shortscore.finished === true) {
       animateShortcore(66);
     }
   });
@@ -41,9 +41,9 @@ jQuery(function($) {
       var predecessor = value - 1;
       $("#shortscore_value").delay(delay).queue(function() {
         $("#shortscore_value").removeClass("shortscore-" + predecessor).addClass("shortscore-" + value).dequeue();
-         if (value === arr.length) {
-           shortscore.finished = true;
-         }
+        if (value === arr.length) {
+          shortscore.finished = true;
+        }
       });
     });
   };
