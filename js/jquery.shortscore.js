@@ -20,6 +20,7 @@ jQuery(function($) {
 
   var animateShortcore = function(delay) {
     shortscore.locked = true;
+    shortscore.finished = false;
     var current_rating = false;
 
     $.each($("#shortscore_value").attr("class").split(/\s+/), function(i, name) {
