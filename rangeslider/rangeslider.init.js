@@ -1,17 +1,13 @@
-(function ($) {
-
-    $(document).ready(function () {
+jQuery(function($) {
         $('#_shortscore_user_rating').rangeslider({
             polyfill: false,
             onInit: function () {
                 this.output = $('.shortscore-hreview .rating .value').html(this.$element.val());
             },
             onSlide: function (position, value) {
-                // this.output.html( value );
                 valueOutput(value);
             }
         });
-
 
         function valueOutput(element) {
             if (element.value === undefined) {
@@ -25,6 +21,4 @@
             var classValue = Math.round(value);
             $('#shortscore_value').removeClass().addClass('shortscore shortscore-' + classValue);
         }
-    });
-
-}(jQuery));
+});
