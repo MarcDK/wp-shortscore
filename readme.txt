@@ -3,7 +3,7 @@ Contributors: MarcDK,lephilde
 Tags: marctv, shortscore, review box, schema, microformat
 Requires at least: 3.0
 Tested up to: 5.5
-Stable tag: 7.0
+Stable tag: 7.1
 
 == Description ==
 
@@ -16,9 +16,9 @@ Present your SHORTSCORES in a review box at the end of your posts.
 
 == Changelog ==
 
-= 7.0 =
+= 7.1 =
 
-Added #141414 background images.
+* Added #141414 background images.
 
 = 6.6 =
 

@@ -3,10 +3,10 @@
 Plugin Name: WP SHORTSCORE
 Description: Show off your SHORTSCORES in a review box at the end of your posts.
 Plugin URI:  http://shortscore.org
-Version:     7.0
+Version:     7.1
 Text Domain: wp-shortscore
 Domain Path: /language
-Author:      MarcDK, lephilde
+Author:      Marc Tönsing
 Author URI:  http://marc.tv
 License URI: GPL v2 - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 */
