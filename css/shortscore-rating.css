@@ -3,8 +3,8 @@
 only screen and (min-resolution: 192dpi),
 only screen and (min-device-pixel-ratio: 2) {
   html .type-game .shortscore {
-    background-image: url('../images/shortscore-mask@4x.png?v=6.7');
-    background-image: url('../images/shortscore-mask.svg?v=6.7'), linear-gradient(transparent, transparent);
+    background-image: url('../assets/shortscore-1200x1600.png?v=8.0');
+    background-image: url('../assets/shortscore.svg?v=8.0'), linear-gradient(transparent, transparent);
   }
 }
 
@@ -12,8 +12,8 @@ only screen and (min-device-pixel-ratio: 2) {
   background-repeat: no-repeat;
   background-position: -400px -600px;
   background-size: 600px;
-  background-image: url('../images/shortscore-mask@2x.png?v=6.7');
-  background-image: url('../images/shortscore-mask.svg?v=6.7'), linear-gradient(transparent, transparent);
+  background-image: url('../assets/shortscore-600x800.png?v=8.0');
+  background-image: url('../assets/shortscore.svg?v=8.0'), linear-gradient(transparent, transparent);
   text-align: center;
   width: 200px;
   height: 200px;
@@ -22,9 +22,8 @@ only screen and (min-device-pixel-ratio: 2) {
   font-weight: 700;
 }
 
-.shortscore,
 .rangeslider .rangeslider__fill {
-  background-color: #108D4F;
+  background-color: #337EB9;
 }
 
 .shortscore * {
