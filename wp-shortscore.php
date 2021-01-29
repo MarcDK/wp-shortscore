@@ -405,6 +405,10 @@ private function getShortscoreJSON(){
 
   $featuredimage_id = get_post_thumbnail_id($pid);
 	$gameimage = wp_get_attachment_image_src($featuredimage_id, 'full' );
+	$gameimage_url = '';
+	$gameimage_width = '';
+	$gameimage_height = '';
+
 	if($gameimage !== false){
 		$gameimage_url = $gameimage[0];
 		$gameimage_width = $gameimage[1];
